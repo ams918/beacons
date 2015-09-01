@@ -11,6 +11,7 @@
     <string name="lbl_wait_in_line">Wait in line</string>
     <string name="lbl_line_size">people in line</string>
     <string name="lbl_check_out">Check Out</string>
+    <string name="lbl_place_order">Place Order</string>
     <string name="lbl_menu_message_default">Lunch combination Entries Includes Miso Soup, Salad, And Rice</string>
     <string name="lbl_pay_now">Pay Now</string>
     <string name="lbl_payment_order_confirmed">Order Confirmed!</string>
