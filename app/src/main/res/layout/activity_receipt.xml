@@ -1,0 +1,70 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
+    android:layout_height="match_parent" android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    tools:context="com.totvs.beetlesrestaurant.ReceiptActivity"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:layout_weight="1">
+
+
+        <TextView
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:text="@string/lbl_receipt_message_default"
+            android:id="@+id/lblReceiptMessage"
+            android:layout_weight="1"
+            android:layout_alignParentBottom="true"
+            android:textColor="#ff5915"
+            android:textSize="25dp"
+            android:textAlignment="gravity"
+            android:gravity="center|left" />
+
+        <TextView
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:text="@string/lbl_payment_order_your_order"
+            android:id="@+id/textViewReceiptYourOrder"
+            android:layout_weight="2"
+            android:layout_alignParentBottom="true"
+            android:textColor="#ff5915"
+            android:textSize="20dp"
+            android:textAlignment="gravity"
+            android:gravity="left|center" />
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:layout_weight="1">
+
+        <ListView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/listViewReceipt"
+            android:layout_gravity="center_horizontal" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content">
+
+        <Button
+            android:layout_width="fill_parent"
+            android:layout_height="@dimen/activity_button_height_default"
+            android:text="@string/lbl_new_order"
+            android:id="@+id/btnNewOrder"
+            android:background="#ff5915"
+            android:layout_weight="1"
+            android:layout_margin="2dp" />
+    </LinearLayout>
+</LinearLayout>

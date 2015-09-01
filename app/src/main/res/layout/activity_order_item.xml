@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="horizontal"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <ImageView
+        android:layout_width="125dp"
+        android:layout_height="125dp"
+        android:id="@+id/imageViewOrderItemPicture"
+        android:src="@drawable/keep_calm_and_wait"
+        android:scaleType="fitCenter"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentStart="true" />
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="200dp"
+        android:layout_height="125dp">
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Shishi Lunch"
+                android:id="@+id/textViewOrderItemTitle"
+                android:layout_weight="1"
+                android:layout_alignParentBottom="true"
+                android:textColor="#ff5915"
+                android:textSize="25dp"
+                android:textAlignment="gravity"
+                android:gravity="bottom|left" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="$8.90"
+                android:id="@+id/textViewOrderItemValue"
+                android:layout_weight="1"
+                android:layout_alignParentBottom="true"
+                android:textColor="#ff5915"
+                android:textSize="25dp"
+                android:textAlignment="gravity"
+                android:gravity="bottom|left"
+                android:textStyle="bold" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="5pcs hamachi, 3 pcs tuna and salad"
+                android:id="@+id/textViewOrderItemDetail"
+                android:layout_weight="1"
+                android:layout_alignParentBottom="true"
+                android:textColor="#9b9b9b"
+                android:textSize="20dp"
+                android:textAlignment="gravity"
+                android:gravity="bottom|left" />
+
+        </LinearLayout>
+    </LinearLayout>
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="40dp"
+        android:layout_height="125dp">
+        <CheckBox
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:text=""
+            android:id="@+id/checkBoxOrderItem"
+            android:gravity="center"
+            android:buttonTint="#ff5915"/>
+    </LinearLayout>
+
+</LinearLayout>
