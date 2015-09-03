@@ -17,7 +17,7 @@
         <ImageView
             android:layout_width="fill_parent"
             android:layout_height="fill_parent"
-            android:id="@+id/imageViewLogoRestaurant"
+            android:id="@+id/imageViewCheckInLogoRestaurant"
             android:src="@drawable/beetle_clip_art_hight"
             android:layout_weight="1"
             android:scaleType="fitCenter"
@@ -27,7 +27,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/app_name"
-            android:id="@+id/textViewTitle"
+            android:id="@+id/textViewCheckInTitle"
             android:layout_weight="1"
             android:layout_alignParentBottom="true"
             android:textColor="#ffffff"
@@ -58,57 +58,70 @@
         android:orientation="vertical"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
-        android:layout_weight="1"
-        android:background="#ff5915">
-        <LinearLayout
-            android:orientation="horizontal"
-            android:layout_width="fill_parent"
-            android:layout_height="fill_parent"
-            android:layout_weight="1">
+        android:layout_weight="1">
 
-        <Button
-            android:layout_width="fill_parent"
-            android:layout_height="fill_parent"
-            android:text="@string/lbl_number_1"
-            android:id="@+id/btn_group_1"
+        <GridLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:columnCount="2"
+            android:rowCount="2"
+            android:useDefaultMargins="false"
             android:background="#ff5915"
-            android:layout_weight="1"
-            android:layout_margin="2dp" />
+            android:layout_gravity="center">
 
-        <Button
-            android:layout_width="fill_parent"
-            android:layout_height="fill_parent"
+            <Button
+                android:layout_width="150dp"
+                android:layout_height="55dp"
+                android:text="@string/lbl_number_1"
+                android:id="@+id/btn_group_1"
+                android:background="#ff5915"
+                android:layout_weight="1"
+                android:layout_margin="2dp"
+                android:textColor="#ffffff"
+                android:textSize="35dp"
+                android:layout_column="0"
+                android:layout_row="0" />
+
+            <Button
+            android:layout_width="150dp"
+            android:layout_height="55dp"
             android:text="@string/lbl_number_2"
             android:id="@+id/btn_group_2"
             android:background="#ffffff"
             android:layout_weight="1"
-            android:layout_margin="2dp" />
-        </LinearLayout>
-
-        <LinearLayout
-            android:orientation="horizontal"
-            android:layout_width="fill_parent"
-            android:layout_height="fill_parent"
-            android:layout_weight="1">
+            android:layout_margin="2dp"
+            android:textColor="#ff5915"
+            android:textSize="35dp"
+                android:layout_column="1"
+                android:layout_row="0" />
 
             <Button
-                android:layout_width="fill_parent"
-                android:layout_height="fill_parent"
+                android:layout_width="150dp"
+                android:layout_height="55dp"
                 android:text="@string/lbl_number_3"
                 android:id="@+id/btn_group_3"
                 android:background="#ffffff"
                 android:layout_weight="1"
-                android:layout_margin="2dp" />
+                android:layout_margin="2dp"
+                android:textColor="#ff5915"
+                android:textSize="35dp"
+                android:layout_row="1"
+                android:layout_column="0" />
 
             <Button
-                android:layout_width="fill_parent"
-                android:layout_height="fill_parent"
+                android:layout_width="150dp"
+                android:layout_height="55dp"
                 android:text="@string/lbl_number_4"
                 android:id="@+id/btn_group_4"
                 android:background="#ffffff"
                 android:layout_weight="1"
-                android:layout_margin="2dp" />
-        </LinearLayout>
+                android:layout_margin="2dp"
+                android:textColor="#ff5915"
+                android:textSize="35dp"
+                android:layout_column="1"
+                android:layout_row="1" />
+        </GridLayout>
+
     </LinearLayout>
     <LinearLayout
         android:orientation="vertical"
@@ -119,7 +132,7 @@
             android:layout_width="fill_parent"
             android:layout_height="@dimen/activity_button_height_default"
             android:text="@string/lbl_line_size"
-            android:id="@+id/textViewLine"
+            android:id="@+id/textViewPeopleInLine"
             android:layout_weight="1"
             android:layout_alignParentBottom="true"
             android:textColor="#ff5915"

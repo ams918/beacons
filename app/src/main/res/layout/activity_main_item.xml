@@ -7,16 +7,16 @@
     <ImageView
         android:layout_width="125dp"
         android:layout_height="125dp"
-        android:id="@+id/imageViewOrderItemPicture"
+        android:id="@+id/imageViewMainItemPicture"
         android:src="@drawable/keep_calm_and_wait"
         android:scaleType="fitCenter"
         android:layout_alignParentEnd="true"
         android:layout_alignParentStart="true"
-        android:tag="product_picture"/>
+        android:tag="company_picture"/>
 
     <LinearLayout
         android:orientation="horizontal"
-        android:layout_width="200dp"
+        android:layout_width="match_parent"
         android:layout_height="125dp">
 
         <LinearLayout
@@ -28,20 +28,20 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Shishi Lunch"
-                android:id="@+id/textViewOrderItemTitle"
+                android:id="@+id/textViewMainItemTitle"
                 android:layout_weight="1"
                 android:layout_alignParentBottom="true"
                 android:textColor="#ff5915"
                 android:textSize="25dp"
                 android:textAlignment="gravity"
                 android:gravity="bottom|left"
-                android:tag="product_title"/>
+                android:tag="company_title"/>
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="$8.90"
-                android:id="@+id/textViewOrderItemValue"
+                android:text="(650) 933-4902"
+                android:id="@+id/textViewMainItemPhone"
                 android:layout_weight="1"
                 android:layout_alignParentBottom="true"
                 android:textColor="#ff5915"
@@ -49,51 +49,35 @@
                 android:textAlignment="gravity"
                 android:gravity="bottom|left"
                 android:textStyle="bold"
-                android:tag="product_price"/>
+                android:tag="company_phone"/>
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="5pcs hamachi, 3 pcs tuna and salad"
-                android:id="@+id/textViewOrderItemDetail"
+                android:text="650 Castro St #210, Mountain View, CA 94041"
+                android:id="@+id/textViewMainItemLocation"
                 android:layout_weight="1"
                 android:layout_alignParentBottom="true"
                 android:textColor="#9b9b9b"
                 android:textSize="20dp"
                 android:textAlignment="gravity"
                 android:gravity="bottom|left"
-                android:tag="product_description"/>
+                android:tag="company_location"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="123456"
+                android:id="@+id/textViewMainItemCode"
+                android:layout_weight="2"
+                android:layout_alignParentBottom="true"
+                android:textColor="#9b9b9b"
+                android:textSize="10dp"
+                android:textAlignment="gravity"
+                android:gravity="bottom|left"
+                android:tag="company_code"/>
 
         </LinearLayout>
-    </LinearLayout>
-
-    <LinearLayout
-        android:orientation="vertical"
-        android:layout_width="45dp"
-        android:layout_height="125dp">
-        <CheckBox
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:text=""
-            android:textSize="0sp"
-            android:id="@+id/checkBoxOrderItem"
-            android:buttonTint="#ff5915"
-            android:tag="product_checked"
-            android:gravity="center"
-            android:scaleX="1.5"
-            android:scaleY="1.5"/>
-
-        <TextView
-            android:layout_width="6dp"
-            android:layout_height="6dp"
-            android:text=""
-            android:id="@+id/textViewOrderItemTransaction"
-            android:layout_weight="1"
-            android:layout_alignParentBottom="true"
-            android:textColor="#9b9b9b"
-            android:textSize="6dp"
-            android:visibility="invisible"
-            android:tag="product_product_transaction"/>
     </LinearLayout>
 
 </LinearLayout>

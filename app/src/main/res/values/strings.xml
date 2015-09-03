@@ -18,10 +18,24 @@
     <string name="lbl_payment_order_you_pay">You Pay</string>
     <string name="lbl_payment_order_your_order">Your Order</string>
     <string name="lbl_new_order">New Order</string>
+    <string name="lbl_finish">Finish</string>
     <string name="lbl_receipt_message_default">This is your receipt with Beetle`s Restaurant on 28 Aug 2015, 7:09pm</string>
 
     <string name="lbl_number_1">1</string>
     <string name="lbl_number_2">2</string>
     <string name="lbl_number_3">3</string>
     <string name="lbl_number_4">4</string>
+
+    <string name="parseAppID">gP7QbFUfyPZ4717IBkhO5obf7ftyTp8OzODcKas2</string>
+    <string name="parseClientID">rPcrSNTFOZZP8eYNNCcpv7ZEVz2uFu5CYcHvGUjj</string>
+    <string name="navigation_from_notification">Navigation from notification</string>
+
+    <string name="lbl_CheckInRequest">CheckInRequest</string>
+    <string name="lbl_CheckInSucess">CheckInSucess</string>
+    <string name="lbl_CheckOutRequest">CheckOutRequest</string>
+    <string name="lbl_CheckOutSucess">CheckOutSucess</string>
+    <string name="color_bg_CheckInRequest">#b7fea0</string>
+    <string name="color_bg_CheckOutRequest">#ffb732</string>
+    <string name="color_bg_CheckInSucess">#e2e2e2</string>
+    <string name="color_bg_CheckOutSucess">#e2e2e2</string>
 </resources>

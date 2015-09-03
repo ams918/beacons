@@ -66,5 +66,13 @@
             android:background="#ff5915"
             android:layout_weight="1"
             android:layout_margin="2dp" />
+        <Button
+            android:layout_width="fill_parent"
+            android:layout_height="@dimen/activity_button_height_default"
+            android:text="@string/lbl_finish"
+            android:id="@+id/btnFinish"
+            android:background="#ff5915"
+            android:layout_weight="1"
+            android:layout_margin="2dp" />
     </LinearLayout>
 </LinearLayout>
