@@ -49,6 +49,7 @@ public class ProductListAdapter extends FirebaseListAdapter<ProductCheckIn> {
             CheckBox checkedText =(CheckBox) view.findViewWithTag("product_checked");
             //checkedText.setChecked(checked);
             checkedText.setVisibility(displayChecked ? View.VISIBLE : View.INVISIBLE);
+            checkedText.setText(model.getProductTransaction());
 
             // Used by che ckeck
             String product_transaction = model.getProductTransaction();
@@ -60,9 +61,10 @@ public class ProductListAdapter extends FirebaseListAdapter<ProductCheckIn> {
                     @Override
                     public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                         try {
-                            TextView productTransactionText = (TextView) buttonView.getRootView().findViewWithTag("product_product_transaction");
+                            //TextView productTransactionText = (TextView) buttonView.getRootView().findViewWithTag("product_product_transaction");
 
-                            Firebase mFirebaseProductUpdate = new FirebaseConn().child("restaurant").child("productCheckin").child(productTransactionText.getText().toString());
+                            //Firebase mFirebaseProductUpdate = new FirebaseConn().child("restaurant").child("productCheckin").child(productTransactionText.getText().toString());
+                            Firebase mFirebaseProductUpdate = new FirebaseConn().child("restaurant").child("productCheckin").child(buttonView.getText().toString());
                             Map<String, Object> updates = new HashMap<String, Object>();
 
                             updates.put("checked", isChecked);
