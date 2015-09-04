@@ -1,5 +1,9 @@
 package com.totvs.beetlesrestaurant.models;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 /**
  * Created by rond.borges on 18/08/2015.
  */
@@ -79,6 +83,10 @@ public class RestaurantCheckIn {
 
     public String getCompanyCode(){
         return companyCode;
+    }
+
+    public String getDate(){
+        return new SimpleDateFormat("dd MMMM yyyy, hh:mm aaa").format(new Date());//28 Aug 2015, 7:09pm
     }
 
     public void copyFrom(RestaurantCheckIn source){

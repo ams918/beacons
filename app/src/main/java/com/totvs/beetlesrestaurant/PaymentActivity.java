@@ -12,6 +12,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.firebase.client.ChildEventListener;
 import com.firebase.client.DataSnapshot;
 import com.firebase.client.Firebase;
 import com.firebase.client.FirebaseError;
@@ -19,6 +20,8 @@ import com.firebase.client.ValueEventListener;
 import com.totvs.beetlesrestaurant.adapters.ProductListAdapter;
 import com.totvs.beetlesrestaurant.drivers.FirebaseConn;
 import com.totvs.beetlesrestaurant.models.Company;
+import com.totvs.beetlesrestaurant.models.Product;
+import com.totvs.beetlesrestaurant.models.ProductCheckIn;
 import com.totvs.beetlesrestaurant.models.RestaurantCheckIn;
 
 import java.util.HashMap;
@@ -61,6 +64,53 @@ public class PaymentActivity extends ActionBarActivity {
             public void onChanged() {
                 super.onChanged();
                 listViewProducts.setSelection(productListAdapter.getCount() - 1);
+            }
+        });
+
+        RestaurantCheckIn.getInstance().setBill(0.0);
+
+        Firebase mFirebaseProductListUpdate = new FirebaseConn().child("restaurant").child("productCheckin");
+        mFirebaseProductListUpdate.orderByChild("transaction").equalTo(RestaurantCheckIn.getInstance().getTransaction()).addChildEventListener(new ChildEventListener() {
+            @Override
+            public void onChildAdded(DataSnapshot dataSnapshot, String s) {
+                ProductCheckIn productCheckIn = dataSnapshot.getValue(ProductCheckIn.class);
+                if (productCheckIn.getChecked()){
+                    RestaurantCheckIn.getInstance().setBill(RestaurantCheckIn.getInstance().getBill()+productCheckIn.getPrice());
+
+                    Firebase mFirebaseCheckInUpdate = new FirebaseConn().child("restaurant").child("checkin").child(RestaurantCheckIn.getInstance().getTransaction());
+                    Map<String, Object> updates = new HashMap<String, Object>();
+
+                    updates.put("bill", RestaurantCheckIn.getInstance().getBill());
+
+                    mFirebaseCheckInUpdate.updateChildren(updates);
+
+                    String bill = "$ "+String.format("%1$,.2f", RestaurantCheckIn.getInstance().getBill());
+                    TextView priceText = (TextView) PaymentActivity.this.findViewById(R.id.lbl_payment_order_bill);
+                    priceText.setText(bill);
+                }else{
+                    Firebase mFirebaseProductListRemoveUnchecked = new FirebaseConn().child("restaurant").child("productCheckin").child(productCheckIn.getProductTransaction());
+                    mFirebaseProductListRemoveUnchecked.removeValue();
+                }
+            }
+
+            @Override
+            public void onChildChanged(DataSnapshot dataSnapshot, String s) {
+
+            }
+
+            @Override
+            public void onChildRemoved(DataSnapshot dataSnapshot) {
+
+            }
+
+            @Override
+            public void onChildMoved(DataSnapshot dataSnapshot, String s) {
+
+            }
+
+            @Override
+            public void onCancelled(FirebaseError firebaseError) {
+
             }
         });
     }

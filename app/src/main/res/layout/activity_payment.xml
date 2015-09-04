@@ -41,8 +41,8 @@
             android:layout_width="fill_parent"
             android:layout_height="fill_parent"
             android:text="$17.90"
-            android:id="@+id/lbl_payment_order_"
-            android:layout_weight="1"
+            android:id="@+id/lbl_payment_order_bill"
+            android:layout_weight=".8"
             android:layout_alignParentBottom="true"
             android:textColor="#ff5915"
             android:textSize="45dp"
@@ -67,7 +67,7 @@
         android:orientation="vertical"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
-        android:layout_weight="1">
+        android:layout_weight=".7">
 
         <ListView
             android:layout_width="match_parent"

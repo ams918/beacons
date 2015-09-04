@@ -14,6 +14,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.firebase.client.Firebase;
@@ -23,6 +24,9 @@ import com.totvs.beetlesrestaurant.models.Company;
 import com.totvs.beetlesrestaurant.models.RestaurantCheckIn;
 import com.totvs.beetlesrestaurant.services.PushNotification;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -42,6 +46,10 @@ public class ReceiptActivity extends ActionBarActivity {
         try {
             if (!Company.getInstance().getCompanyCode().isEmpty()) {
                 listProducts();
+
+                String messageReceipt = "This is your receipt with "+Company.getInstance().getTitle()+" on "+RestaurantCheckIn.getInstance().getDate();
+                TextView messageReceiptText = (TextView) ReceiptActivity.this.findViewById(R.id.lblReceiptMessage);
+                messageReceiptText.setText(messageReceipt);
             }else{
                 Toast.makeText(ReceiptActivity.this, "Company not selected!", Toast.LENGTH_LONG).show();
             }
@@ -93,11 +101,6 @@ public class ReceiptActivity extends ActionBarActivity {
                 RestaurantCheckIn.getInstance().clear();
 
                 v.getContext().startActivity(it);
-                /*
-                Intent i = new Intent(Intent.ACTION_VIEW);
-                i.setData(Uri.parse(PushNotification.URL_SURVEY));
-                startActivity(i);
-                 */
             }
         });
     }

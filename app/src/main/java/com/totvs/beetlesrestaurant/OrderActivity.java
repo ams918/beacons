@@ -121,6 +121,7 @@ public class OrderActivity extends ActionBarActivity {
             Firebase mFirebaseProductList = new FirebaseConn().child("restaurant").child("productCheckin");
             final ListView listViewProducts = (ListView) findViewById(R.id.listViewOrder);
             productListAdapter = new ProductListAdapter(mFirebaseProductList.orderByChild("transaction").equalTo(RestaurantCheckIn.getInstance().getTransaction()), OrderActivity.this, R.layout.activity_order_item, FirebaseConn.getFirebase_url());
+            productListAdapter.setDisplayChecked(true);
             listViewProducts.setAdapter(productListAdapter);
             productListAdapter.registerDataSetObserver(new DataSetObserver() {
                 @Override
