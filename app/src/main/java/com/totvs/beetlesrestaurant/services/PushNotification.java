@@ -111,7 +111,7 @@ public class PushNotification extends IntentService{
 
             Intent newIntent = null;
             if (url.isEmpty()) {
-                newIntent = new Intent(context, CheckInActivity.class);
+                newIntent = new Intent(context, MainActivity.class);
                 newIntent.putExtra(context.getString(R.string.navigation_from_notification), true);
                 newIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK |
                         Intent.FLAG_ACTIVITY_CLEAR_TASK);
