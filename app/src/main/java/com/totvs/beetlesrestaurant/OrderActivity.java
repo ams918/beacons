@@ -30,6 +30,7 @@ import com.totvs.beetlesrestaurant.drivers.FirebaseConn;
 import com.totvs.beetlesrestaurant.models.BeaconModel;
 import com.totvs.beetlesrestaurant.models.Company;
 import com.totvs.beetlesrestaurant.models.RestaurantCheckIn;
+import com.totvs.beetlesrestaurant.services.PushNotification;
 
 import java.util.HashMap;
 import java.util.List;
@@ -81,6 +82,8 @@ public class OrderActivity extends ActionBarActivity {
                 titleText.setText("Tracking your table!");
 
                 listProducts();
+
+                //watchCheckIn();
             }else{
                 Toast.makeText(OrderActivity.this, "Company not selected!", Toast.LENGTH_LONG).show();
             }
@@ -135,6 +138,30 @@ public class OrderActivity extends ActionBarActivity {
         }
     }
 
+    private void watchCheckIn(){
+        try {
+            Firebase mFirebaseWatchCheckIn = new FirebaseConn().child("restaurant").child("checkin").child(RestaurantCheckIn.getInstance().getTransaction());
+
+            mFirebaseWatchCheckIn.addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(DataSnapshot dataSnapshot) {
+                    RestaurantCheckIn restaurantCheckIn = dataSnapshot.getValue(RestaurantCheckIn.class);
+                    RestaurantCheckIn.getInstance().copyFrom(restaurantCheckIn);
+
+                    TextView titleText = (TextView) findViewById(R.id.textViewMenuTable);
+                    titleText.setText("Your are on table: " + RestaurantCheckIn.getInstance().getTable());
+                }
+
+                @Override
+                public void onCancelled(FirebaseError firebaseError) {
+
+                }
+            });
+        }catch (Exception e){
+            Toast.makeText(OrderActivity.this, "watchCheckIn: " + e.toString(), Toast.LENGTH_LONG).show();
+        }
+    }
+
     private void initializeButtons(){
         Button btnAction =(Button) findViewById(R.id.btnPlaceOrder);
 
@@ -144,7 +171,7 @@ public class OrderActivity extends ActionBarActivity {
                 Map<String, Object> updates = new HashMap<String, Object>();
 
                 updates.put("status", getResources().getString(R.string.lbl_CheckOutRequest));
-                updates.put("bill", 17.90);
+                updates.put("bill", 0.0);
 
                 mFirebaseCheckInUpdate.updateChildren(updates);
 
@@ -202,50 +229,54 @@ public class OrderActivity extends ActionBarActivity {
                     try {
                         BeaconModel beaconModel = snapshot.getValue(BeaconModel.class);
 
-                        BeaconModel.getInstance().copyFrom(beaconModel);
+                        if (BeaconModel.getInstance().getCompany().equals(beaconModel.getCompany())){
+                            BeaconModel.getInstance().copyFrom(beaconModel);
 
-                        Firebase mFirebaseWelcomeCompany = new FirebaseConn().child("restaurant").child("companies").child(beaconModel.getCompany());
+                            Firebase mFirebaseWelcomeCompany = new FirebaseConn().child("restaurant").child("companies").child(beaconModel.getCompany());
 
-                        mFirebaseWelcomeCompany.addValueEventListener(new ValueEventListener() {
-                            @Override
-                            public void onDataChange(DataSnapshot snapshot) {
-                                try {
+                            mFirebaseWelcomeCompany.addValueEventListener(new ValueEventListener() {
+                                @Override
+                                public void onDataChange(DataSnapshot snapshot) {
+                                    try {
 
-                                    Company companySelected = snapshot.getValue(Company.class);
-                                    Company.getInstance().copyFrom(companySelected);
+                                        Company companySelected = snapshot.getValue(Company.class);
+                                        Company.getInstance().copyFrom(companySelected);
 
-                                    BeaconModel.getInstance().setCompany(companySelected.getCompanyCode());
+                                        BeaconModel.getInstance().setCompany(companySelected.getCompanyCode());
 
-                                    RestaurantCheckIn.getInstance().setTable(BeaconModel.getInstance().getTable());
-                                    RestaurantCheckIn.getInstance().setCompanyCode(companySelected.getCompanyCode());
-                                    RestaurantCheckIn.getInstance().setBeaconIdentifier(BeaconModel.getInstance().getMacAddress());
+                                        RestaurantCheckIn.getInstance().setTable(BeaconModel.getInstance().getTable());
+                                        RestaurantCheckIn.getInstance().setCompanyCode(companySelected.getCompanyCode());
+                                        RestaurantCheckIn.getInstance().setBeaconIdentifier(BeaconModel.getInstance().getMacAddress());
 
-                                    Firebase mFirebaseCheckInUpdate = new FirebaseConn().child("restaurant").child("checkin").child(RestaurantCheckIn.getInstance().getTransaction());
-                                    Map<String, Object> updates = new HashMap<String, Object>();
+                                        TextView titleText = (TextView) findViewById(R.id.textViewMenuTable);
+                                        titleText.setText("Your are on table: " + RestaurantCheckIn.getInstance().getTable());
 
-                                    updates.put("status", getResources().getString(R.string.lbl_CheckInSucess));
-                                    updates.put("table", RestaurantCheckIn.getInstance().getTable());
-                                    updates.put("companyCode", RestaurantCheckIn.getInstance().getCompanyCode());
-                                    updates.put("beaconIdentifier", RestaurantCheckIn.getInstance().getBeaconIdentifier());
+                                        Firebase mFirebaseCheckInUpdate = new FirebaseConn().child("restaurant").child("checkin").child(RestaurantCheckIn.getInstance().getTransaction());
+                                        Map<String, Object> updates = new HashMap<String, Object>();
 
-                                    TextView titleText = (TextView) findViewById(R.id.textViewMenuTable);
-                                    titleText.setText("Your are on table: " + RestaurantCheckIn.getInstance().getTable());
+                                        updates.put("status", getResources().getString(R.string.lbl_CheckInSucess));
+                                        updates.put("table", RestaurantCheckIn.getInstance().getTable());
+                                        updates.put("companyCode", RestaurantCheckIn.getInstance().getCompanyCode());
+                                        updates.put("beaconIdentifier", RestaurantCheckIn.getInstance().getBeaconIdentifier());
 
-                                    mFirebaseCheckInUpdate.updateChildren(updates);
+                                        mFirebaseCheckInUpdate.updateChildren(updates);
 
-                                } catch (Exception e) {
-                                    //Toast.makeText(NearablePlayProximityActivity.this, "updateNearableFoundFromFirebase: " + e.toString(), Toast.LENGTH_LONG).show();
+                                    } catch (Exception e) {
+                                        //Toast.makeText(OrderActivity.this, "updateNearableFoundFromFirebase: " + e.toString(), Toast.LENGTH_LONG).show();
+                                    }
                                 }
-                            }
 
-                            @Override
-                            public void onCancelled(FirebaseError firebaseError) {
-                                // do nothing
-                            }
-                        });
+                                @Override
+                                public void onCancelled(FirebaseError firebaseError) {
+                                    // do nothing
+                                }
+                            });
+                        }else{
+                            PushNotification.pushNotification(OrderActivity.this, "Hi, " + RestaurantCheckIn.getInstance().getCustomerName(), "Welcome to " + beaconModel.getCompany() + ", would you want to come in?", beaconModel.getCompany(), "");
+                        }
 
                         }catch(Exception e){
-                            //Toast.makeText(NearablePlayProximityActivity.this, "updateNearableFoundFromFirebase: " + e.toString(), Toast.LENGTH_LONG).show();
+                            //Toast.makeText(OrderActivity.this, "updateNearableFoundFromFirebase: " + e.toString(), Toast.LENGTH_LONG).show();
                         }
                 }
 

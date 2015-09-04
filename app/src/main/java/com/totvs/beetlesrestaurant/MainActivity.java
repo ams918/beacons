@@ -208,9 +208,9 @@ public class MainActivity extends ActionBarActivity {
     public void onPause(){
         super.onPause();
 
-        if (beaconManager.isBluetoothEnabled()) {
+        /*if (beaconManager.isBluetoothEnabled()) {
             Intent msgIntent = new Intent(MainActivity.this, PushNotification.class);
             startService(msgIntent);
-        }
+        }*/
     }
 }

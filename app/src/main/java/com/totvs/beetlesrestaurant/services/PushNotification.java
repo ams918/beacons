@@ -49,6 +49,8 @@ public class PushNotification extends IntentService{
     private BeaconManager beaconManager;
     private Nearable selectedNearable = null;
     private static final Region ALL_ESTIMOTE_BEACONS_REGION = new Region("rid", null, null, null);
+    private Beacon selectedBeacon = null;
+    private BeaconModel beaconModel = null;
 
     public static String URL_SURVEY = "https://pt.surveymonkey.com/r/X559Y8M";
 
@@ -203,9 +205,9 @@ public class PushNotification extends IntentService{
     }
 
     private void updateBeaconFound(Beacon foundBeacon){
-        if (BeaconModel.getInstance().getMacAddress().isEmpty()) {
+        if ((Utils.computeAccuracy(foundBeacon) < 0.20)) {
 
-            Beacon selectedBeacon = foundBeacon;
+            selectedBeacon = foundBeacon;
 
             Firebase mFirebaseWelcomeBeacon = new FirebaseConn().child("restaurant").child("beacons").child(selectedBeacon.getMacAddress());
 
@@ -214,8 +216,7 @@ public class PushNotification extends IntentService{
                 public void onDataChange(DataSnapshot snapshot) {
                     try {
 
-                        BeaconModel beaconModel = snapshot.getValue(BeaconModel.class);
-                        BeaconModel.getInstance().copyFrom(beaconModel);
+                        beaconModel = snapshot.getValue(BeaconModel.class);
 
                         Firebase mFirebaseWelcomeCompany = new FirebaseConn().child("restaurant").child("companies").child(beaconModel.getCompany());
 
@@ -223,12 +224,11 @@ public class PushNotification extends IntentService{
                             @Override
                             public void onDataChange(DataSnapshot snapshot) {
                                 try {
+                                    Company companySelected = snapshot.getValue(Company.class);
 
                                     if (Company.getInstance().getCompanyCode().isEmpty()) {
-                                        Company companySelected = snapshot.getValue(Company.class);
-                                        Company.getInstance().copyFrom(companySelected);
-                                        BeaconModel.getInstance().setCompany(companySelected.getCompanyCode());
-
+                                        pushNotification(PushNotification.this, "Hi, " + ownerInfo.name, "Welcome to " + companySelected.getTitle() + ", would you want to come in?", companySelected.getCompanyCode(), "");
+                                    }else if (!Company.getInstance().getCompanyCode().equals(companySelected.getCompanyCode())){
                                         pushNotification(PushNotification.this, "Hi, " + ownerInfo.name, "Welcome to " + companySelected.getTitle() + ", would you want to come in?", companySelected.getCompanyCode(), "");
                                     }
 
@@ -253,20 +253,12 @@ public class PushNotification extends IntentService{
                     // do nothing
                 }
             });
-        }else if ((Utils.computeAccuracy(foundBeacon) < 0.20)){
-            if (foundBeacon.getMacAddress().equals(BeaconModel.getInstance().getMacAddress())) {
-                return;
-            }
-
-            //pushNotification("Hi, "+ownerInfo.name, "I found a new Immediate Beacon: "+ selectedBeacon.getMacAddress());
         }else if ((Utils.computeAccuracy(foundBeacon) > 20)){
             //if (!RestaurantCheckIn.getInstance().getStatus().equals(getResources().getString(R.string.lbl_CheckInRequest))) {
                 //if (foundBeacon.getMacAddress().equals(BeaconModel.getInstance().getMacAddress())) {
                     pushNotification(PushNotification.this, "Hi, " + ownerInfo.name, "How was your experiency with us?", "Please let us know if we miss anything.", URL_SURVEY);
                 //}
             //}
-
-            //pushNotification("Hi, "+ownerInfo.name, "I found a new Immediate Beacon: "+ selectedBeacon.getMacAddress());
         }
     }
 }
